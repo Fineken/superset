@@ -51,6 +51,14 @@ services:
       - 8088:8088
     depends_on: *superset-depends-on
     volumes: *superset-volumes
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 25G
+        reservations:
+          cpus: '1.0'
+          memory: 20G
 
   superset-init:
     image: *superset-image
@@ -72,6 +80,14 @@ services:
     depends_on: *superset-depends-on
     user: "root"
     volumes: *superset-volumes
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 25G
+        reservations:
+          cpus: '1.0'
+          memory: 20G
     healthcheck:
       test: ["CMD-SHELL", "celery inspect ping -A superset.tasks.celery_app:app -d celery@$$HOSTNAME"]
 
@@ -84,6 +100,14 @@ services:
     depends_on: *superset-depends-on
     user: "root"
     volumes: *superset-volumes
+    deploy:
+      resources:
+        limits:
+          cpus: '6.0'
+          memory: 60G
+        reservations:
+          cpus: '4.0'
+          memory: 45G
     healthcheck:
       disable: true
 
