@@ -88,4 +88,11 @@ Handlebars.registerHelper('stringify', (obj: any, obj2: any) => {
   return isPlainObject(obj) ? JSON.stringify(obj) : String(obj);
 });
 
+Handlebars.registerHelper('calcPercentage', function(value) {
+    if (typeof value !== 'number') {
+        return 0;
+    }
+    return value * 100;
+});
+
 Helpers.registerHelpers(Handlebars);

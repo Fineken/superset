@@ -103,6 +103,8 @@ class CeleryConfig(object):
 
 
 CELERY_CONFIG = CeleryConfig
+ENABLE_JAVASCRIPT_CONTROLS = True
+
 
 FEATURE_FLAGS = {
 "ALERT_REPORTS": True, 
@@ -118,7 +120,34 @@ FEATURE_FLAGS = {
 "ALERT_REPORTS_NOTIFICATION_DRY_RUN": True,
 "DASHBOARD_RBAC": True,
 "SUPERSET_WEBSERVER_TIMEOUT": 1200,
+"PREVENT_UNSAFE_DB_CONNECTIONS": False,
+"SQLLAB_BACKEND_PERSISTENCE": True,
+"ENABLE_TEMPLATE_PROCESSING": True,
+"ENABLE_JAVASCRIPT_CONTROLS": True,
+"ESCAPE_MARKDOWN_HTML": False,
+}
 
+JINJA_CONTEXT_ADDONS = {
+    # Удваивает значение
+    'my_custom_macro': lambda x: x * 2,
+    # Возвращает только первые N символов строки
+    'truncate_string': lambda s, n: s[:n] if isinstance(s, str) else s,
+    # Проверяет, является ли число чётным
+    'is_even': lambda x: x % 2 == 0,
+    # Конвертирует строку в верхний регистр
+    'to_uppercase': lambda s: s.upper() if isinstance(s, str) else s,
+    # Возвращает сумму списка чисел
+    'sum_list': lambda lst: sum(lst) if isinstance(lst, list) else 0,
+    # Добавляет префикс к строке
+    'add_prefix': lambda s, prefix: f"{prefix}{s}" if isinstance(s, str) else s,
+    # Проверяет, содержится ли элемент в списке
+    'contains': lambda lst, element: element in lst if isinstance(lst, list) else False,
+    # Возвращает текущую дату
+    'current_date': lambda: datetime.datetime.now().strftime('%Y-%m-%d'),
+    # Форматирует дату в заданном формате
+    'format_date': lambda date, fmt: date.strftime(fmt) if isinstance(date, datetime.date) else None,
+    # Конвертирует строку в число
+    'to_int': lambda s: int(s) if str(s).isdigit() else None,
 }
 
 SQLALCHEMY_ENGINE_OPTIONS = {
@@ -171,3 +200,5 @@ try:
     )
 except ImportError:
     logger.info("Using default Docker config...")
+
+

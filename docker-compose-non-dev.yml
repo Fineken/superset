@@ -54,11 +54,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 25G
+          cpus: '1.0'
+          memory: 15G
         reservations:
           cpus: '1.0'
-          memory: 20G
+          memory: 15G
 
   superset-init:
     image: *superset-image
@@ -83,11 +83,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 25G
+          cpus: '1.0'
+          memory: 10G
         reservations:
           cpus: '1.0'
-          memory: 20G
+          memory: 5G
     healthcheck:
       test: ["CMD-SHELL", "celery inspect ping -A superset.tasks.celery_app:app -d celery@$$HOSTNAME"]
 
@@ -103,11 +103,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '6.0'
-          memory: 60G
+          cpus: '2.0'
+          memory: 20G
         reservations:
-          cpus: '4.0'
-          memory: 45G
+          cpus: '1.0'
+          memory: 15G
     healthcheck:
       disable: true
 
